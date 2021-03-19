@@ -9,6 +9,7 @@ function App() {
   const [position, setPosition] = useState('');
   const [wage, setWage] = useState(0);
 
+  // create display data function that c-logs state info out
   return (
     <div className="App">
       <div className="information">
