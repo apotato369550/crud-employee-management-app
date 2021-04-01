@@ -1,7 +1,9 @@
 import './App.css';
 import React, { useState } from 'react';
+import Axios from 'axios';
 
-// continue here
+
+// this won't post properly
 function App() {
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
@@ -9,7 +11,20 @@ function App() {
   const [position, setPosition] = useState('');
   const [wage, setWage] = useState(0);
 
-  // create display data function that c-logs state info out
+  const addEmployee = () => {
+    // twas lacking /create
+    Axios.post("http://localhost:3001/create", {
+      name: name,
+      age: age,
+      country: country,
+      position: position,
+      wage: wage
+    }).then(() => {
+      console.log("success");
+    });
+  }
+
+  // learn about javascript promises
   return (
     <div className="App">
       <div className="information">
@@ -43,7 +58,11 @@ function App() {
           onChange={(event) => setWage(event.target.value)}
         />
 
-        <button>Add Employee</button>
+        <button onClick={addEmployee}>Add Employee</button>
+      </div>
+      <hr />
+      <div className="employees">
+        <button>Show Employees</button>
       </div>
     </div>
   );
