@@ -11,6 +11,8 @@ function App() {
   const [position, setPosition] = useState('');
   const [wage, setWage] = useState(0);
 
+  const [employeeList, setEmployeeList] = useState([]);
+
   const addEmployee = () => {
     // twas lacking /create
     Axios.post("http://localhost:3001/create", {
@@ -23,6 +25,16 @@ function App() {
       console.log("success");
     });
   }
+
+  const getEmployees = () => {
+    // this works:D
+    Axios.get("http://localhost:3001/employees", {
+    }).then((response) => {
+      console.log(response);
+      setEmployeeList(response.data);
+    })
+  }  
+
 
   // learn about javascript promises
   return (
@@ -60,9 +72,18 @@ function App() {
 
         <button onClick={addEmployee}>Add Employee</button>
       </div>
-      <hr />
       <div className="employees">
-        <button>Show Employees</button>
+        <button onClick={getEmployees}>Show Employees</button>
+
+        {employeeList.map((val, key) => {
+          return <div className="employee">
+            <h3>Name: {val.name}</h3>
+            <h3>Age: {val.age}</h3>
+            <h3>Country: {val.country}</h3>
+            <h3>Position: {val.position}</h3>
+            <h3>Wage: {val.wage}</h3>
+          </div>
+        })}
       </div>
     </div>
   );
