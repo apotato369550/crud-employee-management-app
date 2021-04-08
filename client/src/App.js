@@ -12,6 +12,7 @@ function App() {
   const [wage, setWage] = useState(0);
 
   const [employeeList, setEmployeeList] = useState([]);
+  const [newWage, setNewWage] = useState(0);
 
   const addEmployee = () => {
     // twas lacking /create
@@ -22,7 +23,16 @@ function App() {
       position: position,
       wage: wage
     }).then(() => {
-      console.log("success");
+      setEmployeeList([
+        ...employeeList, 
+        {
+          name: name,
+          age: age,
+          country: country,
+          position: position,
+          wage: wage
+        }
+      ])
     });
   }
 
@@ -35,6 +45,31 @@ function App() {
     })
   }  
 
+  // create update employee function
+
+  // there is something wrong with the function below... wtafVVV
+  // parenthesis was in the wrong place
+  // test this
+  const updateEmployeeWage = (id) => {
+    Axios.put("http://localhost:3001/update", {wage: newWage, id: id}).then(
+      (response) => {
+        alert("Update");
+        // test this
+        // check to see if this works and changes the state
+        // it works
+        setEmployeeList(employeeList.map((val) => {
+          return val.employee_id == id ? {
+            id: val.employee_id,
+            name: val.name,
+            country: val.country,
+            age: val.age,
+            position: val.position,
+            wage: newWage
+          } : val
+        }))
+      }
+    )
+  }
 
   // learn about javascript promises
   return (
@@ -74,7 +109,6 @@ function App() {
       </div>
       <div className="employees">
         <button onClick={getEmployees}>Show Employees</button>
-
         {employeeList.map((val, key) => {
           return <div className="employee">
             <h3>Name: {val.name}</h3>
@@ -82,10 +116,24 @@ function App() {
             <h3>Country: {val.country}</h3>
             <h3>Position: {val.position}</h3>
             <h3>Wage: {val.wage}</h3>
+            <div>
+              {" "}
+              <input 
+                type="text" 
+                placeholder="Enter Wage..." 
+                className="information"
+                onChange={(event) => {
+                  setNewWage(event.target.value);
+                }}
+              />
+              <button onClick={() => {updateEmployeeWage(val.employee_id)}}>Update</button>
+            </div>
           </div>
         })}
       </div>
     </div>
+    // this works
+    // just need to update the state
   );
 }
 

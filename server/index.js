@@ -41,13 +41,32 @@ app.post("/create", (req, res) => {
 app.get("/employees", (req, res) => {
     db.query("SELECT * FROM employees", (err, result) => {
         if(err){
+            console.log(err)
+        } else {
+            res.send(result)
+        }
+    })
+    // test this motherfucker out later
+})
+
+// this doesn't update for some reasonVVV 
+// check if id and wage are valid
+// check frontend
+
+app.put("/update", (req, res) => {
+    const id = req.body.id;
+    const wage = req.body.wage;
+    // fixed the syntax, test tomorrow
+    db.query("UPDATE employees SET wage=? WHERE employee_id=?", [wage, id], (err, result) => {
+        if(err) {
             console.log(err);
         } else {
             res.send(result);
         }
     })
-    // test this motherfucker out later
 })
+
+// app.delete()
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001")

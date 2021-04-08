@@ -13,16 +13,15 @@
   align-items: center;
 }
 
-.information input{
-  width: 300px;
+input{
+  width: 200px;
   height: 50px;
   font-size: 20px;
-  padding-left: 10px;
-  margin: 5px;
+  margin-top: 5px;
 }
 
 button{
-  width: 300px;
+  width: 200px;
   height: 50px;
   margin-top: 15px;
 }
@@ -39,7 +38,7 @@ button:hover {
 }
 
 .employee {
-  width: 700px;
+  width: 875px;
   height: auto;
   border: 1px solid black;
   margin: 10px;
