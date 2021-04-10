@@ -15,7 +15,6 @@ function App() {
   const [newWage, setNewWage] = useState(0);
 
   const addEmployee = () => {
-    // twas lacking /create
     Axios.post("http://localhost:3001/create", {
       name: name,
       age: age,
@@ -37,7 +36,6 @@ function App() {
   }
 
   const getEmployees = () => {
-    // this works:D
     Axios.get("http://localhost:3001/employees", {
     }).then((response) => {
       console.log(response);
@@ -45,11 +43,6 @@ function App() {
     })
   }  
 
-  // create update employee function
-
-  // there is something wrong with the function below... wtafVVV
-  // parenthesis was in the wrong place
-  // test this
   const updateEmployeeWage = (id) => {
     Axios.put("http://localhost:3001/update", {wage: newWage, id: id}).then(
       (response) => {
@@ -72,16 +65,9 @@ function App() {
       setEmployeeList(employeeList.filter((val) => {
         return val.employee_id != id;
       }))
-      // there was an additional equal sign
-      // this works
-      // commit it
-      // sometimes it deletes everything(??)
-      // compare code w/ source code
     })
   }
 
-  // add delete employee function
-  // learn about javascript promises
   return (
     <div className="App">
       <div className="information">
@@ -143,8 +129,6 @@ function App() {
         })}
       </div>
     </div>
-    // this works
-    // just need to update the state
   );
 }
 

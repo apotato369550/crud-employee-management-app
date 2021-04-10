@@ -3,9 +3,6 @@ const app = express()
 const mysql = require("mysql")
 const cors = require("cors")
 
-// had to install cors library thingy
-// the thing won't post properly, might be because a route has not been set properly here
-// change /create to /
 app.use(cors());
 app.use(express.json());
 
@@ -16,7 +13,6 @@ const db = mysql.createConnection({
     database: "crud_employee_app"
 })
 
-// continue tutorial
 app.post("/create", (req, res) => {
     const name = req.body.name;
     const age = req.body.age;
@@ -31,7 +27,6 @@ app.post("/create", (req, res) => {
             if(err){
                 console.log(err);
             } else {
-                // put req instead of res.send()
                 res.send("Values Inserted");
             }
         }
@@ -46,17 +41,11 @@ app.get("/employees", (req, res) => {
             res.send(result)
         }
     })
-    // test this motherfucker out later
 })
-
-// this doesn't update for some reasonVVV 
-// check if id and wage are valid
-// check frontend
 
 app.put("/update", (req, res) => {
     const id = req.body.id;
     const wage = req.body.wage;
-    // fixed the syntax, test tomorrow
     db.query("UPDATE employees SET wage=? WHERE employee_id=?", [wage, id], (err, result) => {
         if(err) {
             console.log(err);
@@ -73,10 +62,6 @@ app.delete("/delete/:id", (req, res) => {
             console.log(err);
         } else {
             res.send(result);
-            // test this
-            // after testing, update state
-            // this works
-            // update
         }
     });
 })
@@ -84,5 +69,3 @@ app.delete("/delete/:id", (req, res) => {
 app.listen(3001, () => {
     console.log("Your server is running on port 3001")
 })
-
-// work on this now
