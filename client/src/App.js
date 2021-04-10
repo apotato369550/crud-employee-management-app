@@ -53,12 +53,8 @@ function App() {
   const updateEmployeeWage = (id) => {
     Axios.put("http://localhost:3001/update", {wage: newWage, id: id}).then(
       (response) => {
-        alert("Update");
-        // test this
-        // check to see if this works and changes the state
-        // it works
         setEmployeeList(employeeList.map((val) => {
-          return val.employee_id == id ? {
+          return val.employee_id === id ? {
             id: val.employee_id,
             name: val.name,
             country: val.country,
@@ -71,6 +67,20 @@ function App() {
     )
   }
 
+  const deleteEmployee = (id) => {
+    Axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
+      setEmployeeList(employeeList.filter((val) => {
+        return val.employee_id != id;
+      }))
+      // there was an additional equal sign
+      // this works
+      // commit it
+      // sometimes it deletes everything(??)
+      // compare code w/ source code
+    })
+  }
+
+  // add delete employee function
   // learn about javascript promises
   return (
     <div className="App">
@@ -127,7 +137,8 @@ function App() {
                 }}
               />
               <button onClick={() => {updateEmployeeWage(val.employee_id)}}>Update</button>
-            </div>
+              <button onClick={() => deleteEmployee(val.employee_id)}>Delete</button>
+            </div> 
           </div>
         })}
       </div>

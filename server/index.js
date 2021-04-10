@@ -66,7 +66,20 @@ app.put("/update", (req, res) => {
     })
 })
 
-// app.delete()
+app.delete("/delete/:id", (req, res) => {
+    const id = req.params.id;
+    db.query("DELETE FROM employees WHERE employee_id = ?", id, (err, result) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.send(result);
+            // test this
+            // after testing, update state
+            // this works
+            // update
+        }
+    });
+})
 
 app.listen(3001, () => {
     console.log("Your server is running on port 3001")
